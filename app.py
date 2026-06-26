@@ -85,19 +85,5 @@ def refresh():
 
     return redirect(url_for("home"))
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
-
-@app.route("/refresh")
-def refresh():
-    try:
-        subprocess.run([sys.executable, "scraper.py"], check=True)
-    except Exception as e:
-        return f"Scraper Error: {e}"
-
-    return redirect(url_for("home"))
-
-
 if __name__ == "__main__":
     app.run(debug=True)
