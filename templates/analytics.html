@@ -4,139 +4,274 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Analytics</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Analytics Dashboard</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-<style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-body{
-background:#0f0e17;
-font-family:Poppins,sans-serif;
-}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-</style>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 
-<body class="text-white">
+<body>
 
-<div class="max-w-7xl mx-auto p-10">
+<div class="layout">
 
-<div class="flex justify-between items-center mb-10">
+<!-- Sidebar -->
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<div class="logo-icon">
+
+<i class="fa-solid fa-film"></i>
+
+</div>
 
 <div>
 
-<h1 class="text-4xl font-black">
+<h2>BoxOffice</h2>
+
+<p>IMDb Dashboard</p>
+
+</div>
+
+</div>
+
+<div class="menu-title">
+
+MENU
+
+</div>
+
+<nav>
+
+<a href="/">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Dashboard</span>
+
+</a>
+
+<a href="/analytics" class="active">
+
+<i class="fa-solid fa-chart-line"></i>
+
+<span>Analytics</span>
+
+</a>
+
+<a href="/database">
+
+<i class="fa-solid fa-database"></i>
+
+<span>Database</span>
+
+</a>
+
+</nav>
+
+<div class="sidebar-footer">
+
+<div class="online">
+
+<span class="dot"></span>
+
+Live Connection
+
+</div>
+
+<p>
+
+Playwright • SQLite • Flask
+
+</p>
+
+</div>
+
+</aside>
+
+<!-- Main -->
+
+<main class="content">
+
+<header class="topbar">
+
+<div>
+
+<h1>
 
 Analytics Dashboard
 
 </h1>
 
-<p class="text-gray-500">
+<p>
 
-IMDb Box Office Statistics
+Visual insights from IMDb Box Office Data
 
 </p>
 
 </div>
 
 <a href="/"
-class="bg-yellow-400 text-black px-5 py-3 rounded-xl font-bold">
+class="status">
 
-← Dashboard
+<i class="fa-solid fa-arrow-left"></i>
+
+Dashboard
 
 </a>
 
+</header>
+
+<section class="stats">
+
+<div class="card">
+
+<div class="icon yellow">
+
+<i class="fa-solid fa-film"></i>
+
 </div>
 
-<div class="grid grid-cols-3 gap-6">
+<h3>Total Movies</h3>
 
-<div class="bg-[#171523] rounded-3xl p-6">
+<h2>{{ total_movies }}</h2>
 
-<p class="text-gray-500 text-xs uppercase">
+</div>
 
-Movies
+<div class="card">
+
+<div class="icon purple">
+
+<i class="fa-solid fa-trophy"></i>
+
+</div>
+
+<h3>Top Movie</h3>
+
+<h2>{{ top_movie }}</h2>
+
+</div>
+
+<div class="card">
+
+<div class="icon green">
+
+<i class="fa-solid fa-dollar-sign"></i>
+
+</div>
+
+<h3>Weekend Gross</h3>
+
+<h2>{{ top_weekend }}</h2>
+
+</div>
+
+<div class="card">
+
+<div class="icon blue">
+
+<i class="fa-solid fa-chart-column"></i>
+
+</div>
+
+<h3>Charts</h3>
+
+<h2>2</h2>
+
+</div>
+
+</section>
+
+<section class="table-section">
+
+<div class="table-header">
+
+<div>
+
+<h2>
+
+Weekend Gross Analysis
+
+</h2>
+
+<p>
+
+Top 10 Movies
 
 </p>
 
-<h2 class="text-4xl font-black mt-4">
-
-{{ total_movies }}
-
-</h2>
-
-</div>
-
-<div class="bg-[#171523] rounded-3xl p-6">
-
-<p class="text-gray-500 text-xs uppercase">
-
-Top Movie
-
-</p>
-
-<h2 class="text-2xl text-yellow-400 font-bold mt-4">
-
-{{ top_movie }}
-
-</h2>
-
-</div>
-
-<div class="bg-[#171523] rounded-3xl p-6">
-
-<p class="text-gray-500 text-xs uppercase">
-
-Weekend Gross
-
-</p>
-
-<h2 class="text-3xl text-purple-400 font-black mt-4">
-
-{{ top_weekend }}
-
-</h2>
-
 </div>
 
 </div>
 
-<div class="bg-[#171523] rounded-3xl p-8 mt-8">
-
-<h2 class="text-2xl font-bold mb-6">
-
-Weekend Gross Chart
-
-</h2>
+<div style="padding:35px">
 
 <canvas id="weekendChart"></canvas>
 
 </div>
 
-<div class="bg-[#171523] rounded-3xl p-8 mt-8">
+</section>
 
-<h2 class="text-2xl font-bold mb-6">
+<br>
 
-Total Gross Chart
+<section class="table-section">
+
+<div class="table-header">
+
+<div>
+
+<h2>
+
+Total Gross Analysis
 
 </h2>
+
+<p>
+
+Overall Revenue
+
+</p>
+
+</div>
+
+</div>
+
+<div style="padding:35px">
 
 <canvas id="totalChart"></canvas>
 
 </div>
 
-</div>
-
+</section>
 <script>
 
-const labels={{ chart_labels|tojson }};
+const labels = {{ chart_labels|tojson }};
+
+const weekendData = {{ chart_weekend_values|tojson }};
+
+const totalData = {{ chart_total_values|tojson }};
+
+// =========================
+// WEEKEND BAR CHART
+// =========================
 
 new Chart(document.getElementById("weekendChart"),{
 
@@ -148,9 +283,24 @@ labels:labels,
 
 datasets:[{
 
-data:{{ chart_weekend_values|tojson }},
+label:"Weekend Gross ($M)",
 
-backgroundColor:"#FACC15"
+data:weekendData,
+
+backgroundColor:[
+"#3b82f6",
+"#8b5cf6",
+"#06b6d4",
+"#22c55e",
+"#eab308",
+"#f97316",
+"#ef4444",
+"#14b8a6",
+"#6366f1",
+"#ec4899"
+],
+
+borderRadius:10
 
 }]
 
@@ -158,11 +308,45 @@ backgroundColor:"#FACC15"
 
 options:{
 
-plugins:{legend:{display:false}}
+responsive:true,
+
+plugins:{
+
+legend:{
+display:false
+}
+
+},
+
+scales:{
+
+x:{
+ticks:{
+color:"#cbd5e1"
+},
+grid:{
+display:false
+}
+},
+
+y:{
+ticks:{
+color:"#cbd5e1"
+},
+grid:{
+color:"#334155"
+}
+}
+
+}
 
 }
 
 });
+
+// =========================
+// TOTAL GROSS LINE CHART
+// =========================
 
 new Chart(document.getElementById("totalChart"),{
 
@@ -174,11 +358,21 @@ labels:labels,
 
 datasets:[{
 
-data:{{ chart_total_values|tojson }},
+label:"Total Gross ($M)",
 
-borderColor:"#A855F7",
+data:totalData,
 
-fill:false
+borderColor:"#8b5cf6",
+
+backgroundColor:"rgba(139,92,246,.15)",
+
+fill:true,
+
+tension:.4,
+
+pointRadius:5,
+
+pointBackgroundColor:"#8b5cf6"
 
 }]
 
@@ -186,13 +380,63 @@ fill:false
 
 options:{
 
-plugins:{legend:{display:false}}
+responsive:true,
+
+plugins:{
+
+legend:{
+display:false
+}
+
+},
+
+scales:{
+
+x:{
+ticks:{
+color:"#cbd5e1"
+},
+grid:{
+display:false
+}
+},
+
+y:{
+ticks:{
+color:"#cbd5e1"
+},
+grid:{
+color:"#334155"
+}
+}
+
+}
 
 }
 
 });
 
 </script>
+
+<footer class="footer">
+
+<p>
+
+© 2026 IMDb Analytics Dashboard
+
+</p>
+
+<p>
+
+Flask • SQLite • Playwright • Chart.js
+
+</p>
+
+</footer>
+
+</main>
+
+</div>
 
 </body>
 

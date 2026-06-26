@@ -5,223 +5,283 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Database</title>
+<title>Database Dashboard</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-<style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-body{
-background:#0f0e17;
-font-family:Poppins,sans-serif;
-}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-</style>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 
-<body class="text-white">
+<body>
 
-<div class="max-w-7xl mx-auto p-10">
+<div class="layout">
 
-<div class="flex justify-between items-center mb-10">
+<!-- Sidebar -->
+
+<aside class="sidebar">
 
 <div>
 
-<h1 class="text-4xl font-black">
+<div class="logo">
+
+<div class="logo-icon">
+
+<i class="fa-solid fa-film"></i>
+
+</div>
+
+<div>
+
+<h2>BoxOffice</h2>
+
+<p>IMDb Dashboard</p>
+
+</div>
+
+</div>
+
+<div class="menu-title">
+
+MENU
+
+</div>
+
+<nav>
+
+<a href="/">
+
+<i class="fa-solid fa-house"></i>
+
+Dashboard
+
+</a>
+
+<a href="/analytics">
+
+<i class="fa-solid fa-chart-line"></i>
+
+Analytics
+
+</a>
+
+<a href="/database" class="active">
+
+<i class="fa-solid fa-database"></i>
+
+Database
+
+</a>
+
+</nav>
+
+</div>
+
+<div class="sidebar-footer">
+
+<div class="online">
+
+<span class="dot"></span>
+
+Live Connection
+
+</div>
+
+<p>
+
+SQLite Connected
+
+</p>
+
+</div>
+
+</aside>
+
+<!-- Main -->
+
+<main class="content">
+
+<header class="topbar">
+
+<div>
+
+<h1>
 
 Database Dashboard
 
 </h1>
 
-<p class="text-gray-500">
+<p>
 
-SQLite Database Information
+Monitor database information and system status.
 
 </p>
 
 </div>
 
 <a href="/"
-class="bg-yellow-400 text-black px-5 py-3 rounded-xl font-bold">
 
-← Dashboard
+class="status">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Dashboard
 
 </a>
 
+</header>
+
+<section class="stats">
+
+<div class="card">
+
+<div class="icon yellow">
+
+<i class="fa-solid fa-table"></i>
+
 </div>
 
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+<h3>Total Records</h3>
 
-<div class="bg-[#171523] rounded-3xl p-6">
+<h2>{{ total_movies }}</h2>
 
-<div class="text-4xl mb-4">📂</div>
+</div>
 
-<p class="text-gray-500 uppercase text-xs">
+<div class="card">
 
-Total Records
+<div class="icon green">
+
+<i class="fa-solid fa-database"></i>
+
+</div>
+
+<h3>Database</h3>
+
+<h2>SQLite</h2>
+
+</div>
+
+<div class="card">
+
+<div class="icon blue">
+
+<i class="fa-solid fa-server"></i>
+
+</div>
+
+<h3>Status</h3>
+
+<h2>Online</h2>
+
+</div>
+
+<div class="card">
+
+<div class="icon purple">
+
+<i class="fa-solid fa-code"></i>
+
+</div>
+
+<h3>Framework</h3>
+
+<h2>Flask</h2>
+
+</div>
+
+</section>
+
+<section class="table-section">
+
+<div class="table-header">
+
+<div>
+
+<h2>
+
+Database Information
+
+</h2>
+
+<p>
+
+Project Configuration
 
 </p>
 
-<h2 class="text-4xl font-black mt-3">
-
-{{ total_movies }}
-
-</h2>
-
-</div>
-
-<div class="bg-[#171523] rounded-3xl p-6">
-
-<div class="text-4xl mb-4">🗄️</div>
-
-<p class="text-gray-500 uppercase text-xs">
-
-Database
-
-</p>
-
-<h2 class="text-3xl font-black text-yellow-400 mt-3">
-
-SQLite
-
-</h2>
-
-</div>
-
-<div class="bg-[#171523] rounded-3xl p-6">
-
-<div class="text-4xl mb-4">🟢</div>
-
-<p class="text-gray-500 uppercase text-xs">
-
-Status
-
-</p>
-
-<h2 class="text-3xl font-black text-green-400 mt-3">
-
-Connected
-
-</h2>
-
-</div>
-
-<div class="bg-[#171523] rounded-3xl p-6">
-
-<div class="text-4xl mb-4">🎬</div>
-
-<p class="text-gray-500 uppercase text-xs">
-
-Movies
-
-</p>
-
-<h2 class="text-4xl font-black mt-3">
-
-{{ total_movies }}
-
-</h2>
-
 </div>
 
 </div>
 
-<div class="bg-[#171523] rounded-3xl mt-10 overflow-hidden">
+<div class="table-wrapper">
 
-<div class="border-b border-gray-800 p-6">
+<table>
 
-<h2 class="text-2xl font-bold">
+<thead>
 
-Database Details
+<tr>
 
-</h2>
+<th>Property</th>
 
-</div>
-
-<table class="w-full">
-
-<tr class="border-b border-gray-800">
-
-<td class="p-5 text-gray-400">
-
-Database Engine
-
-</td>
-
-<td class="p-5">
-
-SQLite 3
-
-</td>
+<th>Value</th>
 
 </tr>
 
-<tr class="border-b border-gray-800">
+</thead>
 
-<td class="p-5 text-gray-400">
+<tbody>
 
-Framework
+<tr>
 
-</td>
+<td>Database Engine</td>
 
-<td class="p-5">
-
-Flask
-
-</td>
-
-</tr>
-
-<tr class="border-b border-gray-800">
-
-<td class="p-5 text-gray-400">
-
-Scraper
-
-</td>
-
-<td class="p-5">
-
-Playwright
-
-</td>
-
-</tr>
-
-<tr class="border-b border-gray-800">
-
-<td class="p-5 text-gray-400">
-
-Records
-
-</td>
-
-<td class="p-5">
-
-{{ total_movies }}
-
-</td>
+<td>SQLite 3</td>
 
 </tr>
 
 <tr>
 
-<td class="p-5 text-gray-400">
+<td>Framework</td>
 
-Connection
+<td>Flask</td>
 
-</td>
+</tr>
 
-<td class="p-5">
+<tr>
 
-<span class="bg-green-500/20 text-green-400 px-4 py-2 rounded-full">
+<td>Scraper</td>
+
+<td>Playwright</td>
+
+</tr>
+
+<tr>
+
+<td>Total Movies</td>
+
+<td>{{ total_movies }}</td>
+
+</tr>
+
+<tr>
+
+<td>Current Status</td>
+
+<td>
+
+<span class="gross weekend">
 
 Connected
 
@@ -231,12 +291,18 @@ Connected
 
 </tr>
 
-</table>
+<tr>
 
-</div>
+<td>Language</td>
 
-</div>
+<td>Python 3</td>
 
-</body>
+</tr>
 
-</html>
+<tr>
+
+<td>Frontend</td>
+
+<td>HTML • CSS • JavaScript</td>
+
+</tr>

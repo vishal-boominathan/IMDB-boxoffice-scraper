@@ -1,0 +1,664 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#0f172a;
+color:#fff;
+overflow-x:hidden;
+}
+
+.layout{
+display:flex;
+min-height:100vh;
+}
+
+.sidebar{
+width:270px;
+background:#111827;
+position:fixed;
+left:0;
+top:0;
+bottom:0;
+padding:30px;
+display:flex;
+flex-direction:column;
+border-right:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:16px;
+margin-bottom:45px;
+}
+
+.logo-icon{
+width:60px;
+height:60px;
+border-radius:18px;
+background:#facc15;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+color:#111827;
+}
+
+.logo h2{
+font-size:28px;
+font-weight:700;
+}
+
+.logo p{
+font-size:13px;
+color:#94a3b8;
+margin-top:4px;
+}
+
+.menu-title{
+font-size:12px;
+letter-spacing:3px;
+color:#64748b;
+margin-bottom:20px;
+}
+
+.sidebar nav{
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+.sidebar nav a{
+display:flex;
+align-items:center;
+gap:15px;
+padding:16px 18px;
+border-radius:16px;
+text-decoration:none;
+color:#cbd5e1;
+font-weight:500;
+transition:.35s;
+}
+
+.sidebar nav a:hover{
+background:#1e293b;
+transform:translateX(5px);
+}
+
+.sidebar nav a.active{
+background:#2563eb;
+color:#fff;
+}
+
+.sidebar-footer{
+margin-top:auto;
+padding-top:25px;
+border-top:1px solid rgba(255,255,255,.08);
+}
+
+.online{
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:600;
+color:#22c55e;
+margin-bottom:8px;
+}
+
+.dot{
+width:10px;
+height:10px;
+border-radius:50%;
+background:#22c55e;
+animation:pulse 1.5s infinite;
+}
+
+.sidebar-footer p{
+color:#64748b;
+font-size:14px;
+}
+
+.content{
+margin-left:270px;
+width:calc(100% - 270px);
+padding:45px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
+}
+
+.topbar h1{
+font-size:42px;
+font-weight:800;
+}
+
+.topbar p{
+margin-top:8px;
+color:#94a3b8;
+}
+
+.status{
+display:flex;
+align-items:center;
+gap:10px;
+padding:12px 22px;
+background:#16a34a;
+border-radius:50px;
+font-weight:600;
+}
+
+.live-dot{
+width:10px;
+height:10px;
+background:#fff;
+border-radius:50%;
+animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(.8);
+opacity:.5;
+}
+
+50%{
+transform:scale(1.2);
+opacity:1;
+}
+
+100%{
+transform:scale(.8);
+opacity:.5;
+}
+
+}
+
+.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+border-radius:30px;
+padding:60px;
+margin-bottom:35px;
+overflow:hidden;
+position:relative;
+}
+
+.badge{
+display:inline-block;
+padding:8px 18px;
+background:rgba(255,255,255,.18);
+border-radius:50px;
+font-size:13px;
+font-weight:700;
+}
+
+.hero h2{
+font-size:52px;
+font-weight:800;
+margin:20px 0;
+}
+
+.hero p{
+font-size:18px;
+line-height:1.8;
+max-width:600px;
+}
+
+.hero-circle{
+width:240px;
+height:240px;
+border-radius:50%;
+background:rgba(255,255,255,.12);
+}
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:25px;
+margin:35px 0;
+}
+
+.card{
+background:#111827;
+border:1px solid rgba(255,255,255,.08);
+border-radius:22px;
+padding:28px;
+transition:.35s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+box-shadow:0 20px 40px rgba(37,99,235,.25);
+}
+
+.icon{
+width:60px;
+height:60px;
+border-radius:18px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:24px;
+margin-bottom:20px;
+}
+
+.yellow{
+background:#facc15;
+color:#111827;
+}
+
+.purple{
+background:#8b5cf6;
+}
+
+.green{
+background:#22c55e;
+}
+
+.blue{
+background:#3b82f6;
+}
+
+.card h3{
+font-size:14px;
+font-weight:500;
+color:#94a3b8;
+margin-bottom:10px;
+}
+
+.card h2{
+font-size:30px;
+font-weight:700;
+line-height:1.4;
+}
+
+.table-section{
+background:#111827;
+border-radius:24px;
+border:1px solid rgba(255,255,255,.08);
+overflow:hidden;
+}
+
+.table-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:30px;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.table-header h2{
+font-size:26px;
+font-weight:700;
+}
+
+.table-header p{
+margin-top:6px;
+color:#94a3b8;
+}
+
+.search-box{
+width:330px;
+display:flex;
+align-items:center;
+gap:12px;
+background:#1e293b;
+padding:14px 18px;
+border-radius:14px;
+}
+
+.search-box input{
+width:100%;
+background:none;
+border:none;
+outline:none;
+color:#fff;
+font-size:15px;
+}
+
+.search-box i{
+color:#94a3b8;
+}
+
+.table-wrapper{
+overflow-x:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+thead{
+background:#172033;
+}
+
+thead th{
+padding:20px;
+text-align:left;
+font-size:13px;
+text-transform:uppercase;
+letter-spacing:1px;
+color:#94a3b8;
+}
+
+tbody tr{
+border-top:1px solid rgba(255,255,255,.06);
+transition:.3s;
+}
+
+tbody tr:hover{
+background:#1e293b;
+}
+
+tbody td{
+padding:20px;
+}
+
+.movie-name{
+font-weight:600;
+}
+
+.rank{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+width:42px;
+height:42px;
+background:#1e293b;
+border-radius:50%;
+font-weight:700;
+}
+
+.gold{
+background:#facc15;
+color:#111827;
+}
+
+.silver{
+background:#cbd5e1;
+color:#111827;
+}
+
+.bronze{
+background:#fb923c;
+color:#111827;
+}
+
+.gross{
+display:inline-block;
+padding:8px 14px;
+border-radius:20px;
+font-weight:600;
+}
+
+.weekend{
+background:#dcfce7;
+color:#15803d;
+}
+
+.total{
+background:#dbeafe;
+color:#1d4ed8;
+}
+
+.weeks{
+background:#1e293b;
+padding:8px 14px;
+border-radius:20px;
+display:inline-block;
+}
+.footer{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:25px 0;
+margin-top:40px;
+border-top:1px solid rgba(255,255,255,.08);
+color:#94a3b8;
+font-size:14px;
+}
+
+::-webkit-scrollbar{
+width:10px;
+height:10px;
+}
+
+::-webkit-scrollbar-track{
+background:#0f172a;
+}
+
+::-webkit-scrollbar-thumb{
+background:#334155;
+border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+background:#475569;
+}
+
+@keyframes fadeUp{
+
+0%{
+opacity:0;
+transform:translateY(30px);
+}
+
+100%{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+.hero{
+animation:fadeUp .8s ease;
+}
+
+.card{
+animation:fadeUp .8s ease;
+}
+
+.table-section{
+animation:fadeUp 1s ease;
+}
+
+.hero-circle{
+animation:float 5s ease-in-out infinite;
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-15px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+.card:hover .icon{
+transform:scale(1.1) rotate(8deg);
+transition:.3s;
+}
+
+.rank{
+transition:.3s;
+}
+
+tbody tr:hover .rank{
+transform:scale(1.1);
+}
+
+.search-box{
+transition:.3s;
+}
+
+.search-box:focus-within{
+box-shadow:0 0 0 3px rgba(59,130,246,.3);
+}
+
+@media(max-width:1200px){
+
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+
+.hero{
+flex-direction:column;
+text-align:center;
+gap:40px;
+}
+
+.hero h2{
+font-size:42px;
+}
+
+}
+
+@media(max-width:900px){
+
+.layout{
+flex-direction:column;
+}
+
+.sidebar{
+position:relative;
+width:100%;
+height:auto;
+}
+
+.content{
+margin-left:0;
+width:100%;
+padding:25px;
+}
+
+.table-header{
+flex-direction:column;
+align-items:flex-start;
+gap:20px;
+}
+
+.search-box{
+width:100%;
+}
+
+.footer{
+flex-direction:column;
+gap:10px;
+text-align:center;
+}
+
+}
+
+@media(max-width:700px){
+
+.stats{
+grid-template-columns:1fr;
+}
+
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+gap:20px;
+}
+
+.hero{
+padding:35px;
+}
+
+.hero h2{
+font-size:34px;
+}
+
+.hero-circle{
+display:none;
+}
+
+thead{
+display:none;
+}
+
+table,
+tbody,
+tr,
+td{
+display:block;
+width:100%;
+}
+
+tbody tr{
+margin:15px;
+border-radius:18px;
+background:#172033;
+padding:10px;
+}
+
+tbody td{
+padding:10px 15px;
+}
+
+tbody td:nth-child(1)::before{
+content:"Rank";
+display:block;
+color:#94a3b8;
+font-size:12px;
+margin-bottom:5px;
+}
+
+tbody td:nth-child(2)::before{
+content:"Movie";
+display:block;
+color:#94a3b8;
+font-size:12px;
+margin-bottom:5px;
+}
+
+tbody td:nth-child(3)::before{
+content:"Weekend Gross";
+display:block;
+color:#94a3b8;
+font-size:12px;
+margin-bottom:5px;
+}
+
+tbody td:nth-child(4)::before{
+content:"Total Gross";
+display:block;
+color:#94a3b8;
+font-size:12px;
+margin-bottom:5px;
+}
+
+tbody td:nth-child(5)::before{
+content:"Weeks";
+display:block;
+color:#94a3b8;
+font-size:12px;
+margin-bottom:5px;
+}
+
+}
