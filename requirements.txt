@@ -1,2 +1,6 @@
 Flask
+gunicorn
 playwright
+beautifulsoup4
+requests
+lxml
