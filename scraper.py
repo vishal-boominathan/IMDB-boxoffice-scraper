@@ -12,6 +12,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS movies(
             position INTEGER PRIMARY KEY,
             movie_name TEXT,
+            poster_url TEXT,
             weekend_gross TEXT,
             total_gross TEXT,
             weeks_open TEXT
@@ -27,29 +28,40 @@ def scrape():
     conn = sqlite3.connect(DB_NAME)
     cur = conn.cursor()
 
-    cur.execute("DELETE FROM movies")
+    cur.execute("DROP TABLE IF EXISTS movies")
+
+    cur.execute("""
+        CREATE TABLE movies(
+            position INTEGER PRIMARY KEY,
+            movie_name TEXT,
+            poster_url TEXT,
+            weekend_gross TEXT,
+            total_gross TEXT,
+            weeks_open TEXT
+        )
+    """)
 
     with sync_playwright() as p:
 
         browser = p.chromium.launch(headless=False)
 
-        page = browser.new_page()
+        page = browser.new_page(viewport={"width": 1400, "height": 1200})
 
         page.goto(
             "https://www.imdb.com/chart/boxoffice",
-            wait_until="domcontentloaded"
+            wait_until="networkidle"
         )
 
         page.wait_for_selector(
-    "li.ipc-metadata-list-summary-item",
-    timeout=30000
-)
+            "li.ipc-metadata-list-summary-item",
+            timeout=30000
+        )
 
         cards = page.locator("li.ipc-metadata-list-summary-item")
 
         count = cards.count()
 
-        print("Found", count, "movies")
+        print(f"Found {count} movies")
 
         for i in range(min(10, count)):
 
@@ -78,21 +90,29 @@ def scrape():
                 elif line.startswith("Weeks Released"):
                     weeks = line.replace("Weeks Released:", "").strip()
 
+            poster = ""
+
+            try:
+                poster = card.locator("img").first.get_attribute("src")
+            except:
+                poster = ""
+
             cur.execute(
                 """
                 INSERT INTO movies
-                VALUES(?,?,?,?,?)
+                VALUES(?,?,?,?,?,?)
                 """,
                 (
                     i + 1,
                     title,
+                    poster,
                     weekend,
                     total,
                     weeks
                 )
             )
 
-            print(i + 1, title)
+            print(f"{i+1}. {title}")
 
         conn.commit()
         conn.close()

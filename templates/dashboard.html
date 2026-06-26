@@ -307,49 +307,46 @@ placeholder="Search movie...">
 
 <td>
 
-{% if movie[0]==1 %}
-
+{% if movie[0] == 1 %}
 <span class="rank gold">🥇</span>
-
-{% elif movie[0]==2 %}
-
+{% elif movie[0] == 2 %}
 <span class="rank silver">🥈</span>
-
-{% elif movie[0]==3 %}
-
+{% elif movie[0] == 3 %}
 <span class="rank bronze">🥉</span>
-
 {% else %}
-
-<span class="rank">
-
-{{ movie[0] }}
-
-</span>
-
+<span class="rank">{{ movie[0] }}</span>
 {% endif %}
 
 </td>
 
-<td class="movie-name">
+<td>
+
+<div style="display:flex;align-items:center;gap:15px;">
+
+<img
+src="{{ movie[2] }}"
+alt="{{ movie[1] }}"
+style="
+width:60px;
+height:90px;
+object-fit:cover;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.25);
+">
+
+<div class="movie-name">
 
 {{ movie[1] }}
+
+</div>
+
+</div>
 
 </td>
 
 <td>
 
 <span class="gross weekend">
-
-{{ movie[2] }}
-
-</span>
-
-</td>
-
-<td>
-
-<span class="gross total">
 
 {{ movie[3] }}
 
@@ -359,9 +356,19 @@ placeholder="Search movie...">
 
 <td>
 
-<span class="weeks">
+<span class="gross total">
 
 {{ movie[4] }}
+
+</span>
+
+</td>
+
+<td>
+
+<span class="weeks">
+
+{{ movie[5] }}
 
 </span>
 
@@ -372,35 +379,4 @@ placeholder="Search movie...">
 {% endfor %}
 
 </tbody>
-
-</table>
-
-</div>
-
-</section>
-
-<footer class="footer">
-
-<p>
-
-© 2026 IMDb Box Office Dashboard
-
-</p>
-
-<p>
-
-Built with Flask • Playwright • SQLite • Chart.js
-
-</p>
-
-</footer>
-
-</main>
-
-</div>
-
-<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
-
-</body>
-
 </html>
