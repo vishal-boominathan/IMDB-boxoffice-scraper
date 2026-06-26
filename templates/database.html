@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Database</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+body{
+background:#0f0e17;
+font-family:Poppins,sans-serif;
+}
+
+</style>
+
+</head>
+
+<body class="text-white">
+
+<div class="max-w-7xl mx-auto p-10">
+
+<div class="flex justify-between items-center mb-10">
+
+<div>
+
+<h1 class="text-4xl font-black">
+
+Database Dashboard
+
+</h1>
+
+<p class="text-gray-500">
+
+SQLite Database Information
+
+</p>
+
+</div>
+
+<a href="/"
+class="bg-yellow-400 text-black px-5 py-3 rounded-xl font-bold">
+
+← Dashboard
+
+</a>
+
+</div>
+
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+
+<div class="bg-[#171523] rounded-3xl p-6">
+
+<div class="text-4xl mb-4">📂</div>
+
+<p class="text-gray-500 uppercase text-xs">
+
+Total Records
+
+</p>
+
+<h2 class="text-4xl font-black mt-3">
+
+{{ total_movies }}
+
+</h2>
+
+</div>
+
+<div class="bg-[#171523] rounded-3xl p-6">
+
+<div class="text-4xl mb-4">🗄️</div>
+
+<p class="text-gray-500 uppercase text-xs">
+
+Database
+
+</p>
+
+<h2 class="text-3xl font-black text-yellow-400 mt-3">
+
+SQLite
+
+</h2>
+
+</div>
+
+<div class="bg-[#171523] rounded-3xl p-6">
+
+<div class="text-4xl mb-4">🟢</div>
+
+<p class="text-gray-500 uppercase text-xs">
+
+Status
+
+</p>
+
+<h2 class="text-3xl font-black text-green-400 mt-3">
+
+Connected
+
+</h2>
+
+</div>
+
+<div class="bg-[#171523] rounded-3xl p-6">
+
+<div class="text-4xl mb-4">🎬</div>
+
+<p class="text-gray-500 uppercase text-xs">
+
+Movies
+
+</p>
+
+<h2 class="text-4xl font-black mt-3">
+
+{{ total_movies }}
+
+</h2>
+
+</div>
+
+</div>
+
+<div class="bg-[#171523] rounded-3xl mt-10 overflow-hidden">
+
+<div class="border-b border-gray-800 p-6">
+
+<h2 class="text-2xl font-bold">
+
+Database Details
+
+</h2>
+
+</div>
+
+<table class="w-full">
+
+<tr class="border-b border-gray-800">
+
+<td class="p-5 text-gray-400">
+
+Database Engine
+
+</td>
+
+<td class="p-5">
+
+SQLite 3
+
+</td>
+
+</tr>
+
+<tr class="border-b border-gray-800">
+
+<td class="p-5 text-gray-400">
+
+Framework
+
+</td>
+
+<td class="p-5">
+
+Flask
+
+</td>
+
+</tr>
+
+<tr class="border-b border-gray-800">
+
+<td class="p-5 text-gray-400">
+
+Scraper
+
+</td>
+
+<td class="p-5">
+
+Playwright
+
+</td>
+
+</tr>
+
+<tr class="border-b border-gray-800">
+
+<td class="p-5 text-gray-400">
+
+Records
+
+</td>
+
+<td class="p-5">
+
+{{ total_movies }}
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="p-5 text-gray-400">
+
+Connection
+
+</td>
+
+<td class="p-5">
+
+<span class="bg-green-500/20 text-green-400 px-4 py-2 rounded-full">
+
+Connected
+
+</span>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

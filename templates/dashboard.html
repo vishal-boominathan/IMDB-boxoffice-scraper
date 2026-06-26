@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>IMDb Dashboard</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+body{
+
+font-family:Poppins,sans-serif;
+background:#0f0e17;
+
+}
+
+</style>
+
+</head>
+
+<body class="text-white flex">
+
+<!-- Sidebar -->
+
+<aside
+class="w-64 min-h-screen bg-[#171523] border-r border-gray-800 p-6">
+
+<div class="flex items-center gap-3 mb-10">
+
+<div
+class="w-12 h-12 rounded-xl bg-yellow-400 text-black flex items-center justify-center text-2xl">
+
+🎬
+
+</div>
+
+<div>
+
+<h2 class="font-bold text-lg">
+
+BoxOffice
+
+</h2>
+
+<p class="text-gray-500 text-xs">
+
+IMDb Dashboard
+
+</p>
+
+</div>
+
+</div>
+
+<nav class="space-y-3">
+
+<a href="/"
+class="block bg-[#25213b] text-yellow-400 rounded-xl px-4 py-3">
+
+🏠 Dashboard
+
+</a>
+
+<a href="/analytics"
+class="block hover:bg-[#25213b] rounded-xl px-4 py-3">
+
+📊 Analytics
+
+</a>
+
+<a href="/database"
+class="block hover:bg-[#25213b] rounded-xl px-4 py-3">
+
+🗄 Database
+
+</a>
+
+</nav>
+
+</aside>
+
+<!-- Main -->
+
+<div class="flex-1 p-10">
+
+<div class="flex justify-between items-center">
+
+<div>
+
+<h1 class="text-4xl font-black">
+
+IMDb US
+<span class="text-yellow-400">
+
+Top 10
+
+</span>
+
+Movies
+
+</h1>
+
+<p class="text-gray-400 mt-2">
+
+Live IMDb Box Office Dashboard
+
+</p>
+
+</div>
+
+<div
+class="bg-[#1d1a2b] px-5 py-2 rounded-full">
+
+🟢 Online
+
+</div>
+
+</div>
+<!-- ===========================
+HERO SECTION
+=========================== -->
+
+<div class="mt-10 bg-[#171523] rounded-3xl p-10 border border-gray-800 relative overflow-hidden">
+
+    <div class="absolute -right-24 -top-20 w-72 h-72 bg-purple-600 opacity-20 blur-3xl rounded-full"></div>
+
+    <span class="inline-block bg-green-500/10 text-green-400 px-4 py-2 rounded-full text-xs font-bold">
+        ● Live Box Office Data
+    </span>
+
+    <h2 class="text-5xl font-black mt-6">
+
+        IMDb US
+
+        <span class="text-yellow-400">
+
+            Top 10
+
+        </span>
+
+        Movies
+
+    </h2>
+
+    <p class="text-gray-400 mt-4 max-w-2xl">
+
+        Real-time US Box Office rankings scraped from IMDb using Playwright,
+        stored in SQLite and displayed using Flask.
+
+    </p>
+
+</div>
+
+<!-- ===========================
+STATISTICS
+=========================== -->
+
+<div class="grid grid-cols-4 gap-6 mt-8">
+
+    <div class="bg-[#171523] rounded-3xl p-6 border border-gray-800">
+
+        <p class="text-gray-500 uppercase text-xs">
+
+            Total Movies
+
+        </p>
+
+        <h2 class="text-4xl font-black mt-3">
+
+            {{ total_movies }}
+
+        </h2>
+
+    </div>
+
+    <div class="bg-[#171523] rounded-3xl p-6 border border-gray-800">
+
+        <p class="text-gray-500 uppercase text-xs">
+
+            #1 Movie
+
+        </p>
+
+        <h2 class="text-yellow-400 text-2xl font-bold mt-3">
+
+            {{ top_movie }}
+
+        </h2>
+
+    </div>
+
+    <div class="bg-[#171523] rounded-3xl p-6 border border-gray-800">
+
+        <p class="text-gray-500 uppercase text-xs">
+
+            Weekend Gross
+
+        </p>
+
+        <h2 class="text-purple-400 text-3xl font-black mt-3">
+
+            {{ top_weekend }}
+
+        </h2>
+
+    </div>
+
+    <div class="bg-[#171523] rounded-3xl p-6 border border-gray-800">
+
+        <p class="text-gray-500 uppercase text-xs">
+
+            Status
+
+        </p>
+
+        <h2 class="text-green-400 text-3xl font-black mt-3">
+
+            LIVE
+
+        </h2>
+
+    </div>
+
+</div>
+
+<!-- ===========================
+MOVIE TABLE
+=========================== -->
+
+<div class="bg-[#171523] rounded-3xl mt-10 border border-gray-800 overflow-hidden">
+
+    <div class="flex justify-between items-center p-6 border-b border-gray-800">
+
+        <div>
+
+            <h2 class="text-2xl font-bold">
+
+                Top 10 Movies
+
+            </h2>
+
+            <p class="text-gray-500 text-sm">
+
+                IMDb US Box Office
+
+            </p>
+
+        </div>
+
+        <input
+            id="search"
+            type="text"
+            placeholder="Search..."
+            class="bg-[#232038] rounded-xl px-5 py-3 outline-none w-72">
+
+    </div>
+
+    <table class="w-full">
+
+        <thead>
+
+        <tr class="text-left text-gray-500 uppercase text-xs border-b border-gray-800">
+
+            <th class="p-5">Rank</th>
+
+            <th>Movie</th>
+
+            <th>Weekend Gross</th>
+
+            <th>Total Gross</th>
+
+            <th>Weeks</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody id="movieTable">
+
+        {% for movie in movies %}
+
+        <tr class="border-b border-gray-800 hover:bg-[#1f1b31] transition">
+
+            <td class="p-5 font-bold">
+
+                {{ movie[0] }}
+
+            </td>
+
+            <td>
+
+                {{ movie[1] }}
+
+            </td>
+
+            <td class="text-purple-400">
+
+                {{ movie[2] }}
+
+            </td>
+
+            <td>
+
+                {{ movie[3] }}
+
+            </td>
+
+            <td>
+
+                {{ movie[4] }}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script>
+
+document.getElementById("search").addEventListener("keyup",function(){
+
+let value=this.value.toLowerCase();
+
+let rows=document.querySelectorAll("#movieTable tr");
+
+rows.forEach(row=>{
+
+let movie=row.cells[1].innerText.toLowerCase();
+
+row.style.display=movie.includes(value)?"":"none";
+
+});
+
+});
+
+</script>
+
+</div>
+
+</body>
+
+</html>

@@ -1,129 +1,1153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>IMDb US Top 10 Box Office</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>IMDb BoxOffice Dashboard</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <style>
 
 body{
-    background:#0f0f0f;
-    color:white;
+
+background:#0f0e17;
+font-family:'Poppins',sans-serif;
+
 }
 
-.container{
-    margin-top:40px;
+.glow{
+
+filter:drop-shadow(0 0 30px rgba(139,92,246,.25));
+
 }
 
-h1{
-    color:#f5c518;
-    font-weight:bold;
+.sidebar-link{
+
+transition:.3s;
+
 }
 
-.card{
-    background:#1b1b1b;
-    border:none;
-    border-radius:12px;
-}
+.sidebar-link:hover{
 
-.table{
-    color:white;
-}
+transform:translateX(5px);
 
-.table-dark{
-    background:#1b1b1b;
-}
-
-thead{
-    background:#f5c518;
-    color:black;
-}
-
-.btn-warning{
-    font-weight:bold;
-}
-
-.rank{
-    font-weight:bold;
-    color:#f5c518;
 }
 
 </style>
 
 </head>
 
-<body>
+<body class="text-gray-200 flex min-h-screen">
 
-<div class="container">
+<!-- ===========================
+SIDEBAR
+=========================== -->
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<aside
+class="w-64 bg-[#161424] border-r border-gray-800 flex flex-col justify-between p-6 shrink-0">
 
-<h1>IMDb US Top 10 Box Office</h1>
+<div>
 
-<a href="/refresh" class="btn btn-warning">
-Refresh Data
+<!-- Logo -->
+
+<div
+class="flex items-center gap-3 mb-12">
+
+<div
+class="w-12 h-12 rounded-xl bg-amber-400 flex justify-center items-center text-black text-2xl font-black">
+
+🎬
+
+</div>
+
+<div>
+
+<h2
+class="font-bold text-lg text-white">
+
+BoxOffice
+
+</h2>
+
+<p
+class="text-xs text-gray-500">
+
+IMDb Dashboard
+
+</p>
+
+</div>
+
+</div>
+
+<!-- Menu -->
+
+<p
+class="text-xs uppercase tracking-[3px] text-gray-500 mb-4">
+
+MENU
+
+</p>
+
+<nav class="space-y-2">
+
+<a href="/"
+class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl {% if page=='dashboard' %} bg-[#25213b] text-amber-400 {% else %} text-gray-400 hover:bg-[#1d1b2e] hover:text-white {% endif %}">
+
+🏠
+
+<span>
+
+Dashboard
+
+</span>
+
 </a>
 
-</div>
+<a href="/analytics"
+class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl {% if page=='analytics' %} bg-[#25213b] text-amber-400 {% else %} text-gray-400 hover:bg-[#1d1b2e] hover:text-white {% endif %}">
 
-<div class="card shadow">
+📊
 
-<div class="card-body">
+<span>
 
-<table class="table table-dark table-hover align-middle">
+Analytics
 
-<thead>
+</span>
 
-<tr>
+</a>
 
-<th>Position</th>
+<a href="/database"
+class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl {% if page=='database' %} bg-[#25213b] text-amber-400 {% else %} text-gray-400 hover:bg-[#1d1b2e] hover:text-white {% endif %}">
 
-<th>Movie Name</th>
+🗄️
 
-<th>Weekend Gross</th>
+<span>
 
-<th>Total Gross</th>
+Database
 
-<th>Weeks Open</th>
+</span>
 
-</tr>
+</a>
 
-</thead>
-
-<tbody>
-
-{% for movie in movies %}
-
-<tr>
-
-<td class="rank">{{ movie[0] }}</td>
-
-<td>{{ movie[1] }}</td>
-
-<td>{{ movie[2] }}</td>
-
-<td>{{ movie[3] }}</td>
-
-<td>{{ movie[4] }}</td>
-
-</tr>
-
-{% endfor %}
-
-</tbody>
-
-</table>
+</nav>
 
 </div>
 
-</div>
+<!-- Bottom Status -->
+
+<div
+class="border-t border-gray-800 pt-5">
+
+<div
+class="flex items-center gap-2 text-emerald-400 text-sm font-medium">
+
+<div
+class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse">
 
 </div>
 
-</body>
+Online
 
-</html>
+</div>
+
+<p
+class="text-gray-600 text-xs mt-2">
+
+IMDb Live Dashboard
+
+</p>
+
+</div>
+
+</aside>
+
+<!-- ===========================
+MAIN CONTENT
+=========================== -->
+
+<main
+class="flex-1 p-8 overflow-y-auto max-w-7xl mx-auto relative">
+<!-- ===========================
+TOP HEADER
+=========================== -->
+
+<header class="flex justify-between items-center mb-8">
+
+    <div>
+
+        <h2 class="text-2xl font-bold text-white">
+            Dashboard
+        </h2>
+
+        <p class="text-gray-500 text-sm mt-1">
+            Welcome to your IMDb Box Office Dashboard
+        </p>
+
+    </div>
+
+    <div
+        class="flex items-center gap-2 bg-[#1b1829] border border-gray-800 rounded-full px-5 py-2">
+
+        <span
+            class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+
+        <span class="text-emerald-400 text-sm font-semibold">
+            Online
+        </span>
+
+    </div>
+
+</header>
+
+<!-- ===========================
+HERO SECTION
+=========================== -->
+
+<section
+class="relative overflow-hidden rounded-3xl bg-[#161424] border border-gray-800 p-10 mb-8">
+
+    <!-- Purple Glow -->
+
+    <div
+    class="absolute -left-24 -bottom-20 w-72 h-72 rounded-full bg-purple-600/20 blur-3xl glow"></div>
+
+    <div
+    class="absolute right-0 top-0 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl"></div>
+
+    <div class="relative z-10">
+
+        <span
+        class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 px-4 py-2 rounded-full text-xs font-semibold border border-emerald-500/20">
+
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+
+            Live Box Office Data
+
+        </span>
+
+        <h1
+        class="mt-6 text-5xl font-extrabold text-white leading-tight">
+
+            IMDb US
+
+            <span class="text-amber-400">
+
+                Top 10
+
+            </span>
+
+            Movies
+
+        </h1>
+
+        <p
+        class="mt-5 text-gray-400 max-w-2xl leading-8">
+
+            Real-time US Box Office rankings scraped using
+            <span class="text-white font-semibold">Playwright</span>,
+            stored securely inside
+            <span class="text-white font-semibold">SQLite</span>,
+            and visualized using
+            <span class="text-white font-semibold">Flask</span>.
+
+        </p>
+
+        <div class="mt-8 flex gap-4">
+
+            <a href="/analytics"
+
+               class="bg-amber-500 hover:bg-amber-600 transition text-black font-bold px-6 py-3 rounded-xl">
+
+                📊 View Analytics
+
+            </a>
+
+            <a href="/database"
+
+               class="bg-[#262238] hover:bg-[#312d47] transition border border-gray-700 px-6 py-3 rounded-xl text-gray-300 font-semibold">
+
+                🗄 Database
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ===========================
+STATISTICS CARDS
+=========================== -->
+
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
+
+    <!-- Total Movies -->
+
+    <div class="bg-[#161424] border border-gray-800 rounded-3xl p-6 hover:scale-105 transition">
+
+        <div class="flex justify-between items-center">
+
+            <div>
+
+                <p class="text-xs uppercase tracking-widest text-gray-500">
+
+                    Total Movies
+
+                </p>
+
+                <h2 class="text-4xl font-black text-white mt-3">
+
+                    {{ total_movies }}
+
+                </h2>
+
+                <p class="text-xs text-gray-500 mt-2">
+
+                    Stored in SQLite
+
+                </p>
+
+            </div>
+
+            <div class="w-16 h-16 rounded-2xl bg-amber-500/15 flex justify-center items-center text-3xl">
+
+                🎬
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Top Movie -->
+
+    <div class="bg-[#161424] border border-gray-800 rounded-3xl p-6 hover:scale-105 transition">
+
+        <div class="flex justify-between items-center">
+
+            <div>
+
+                <p class="text-xs uppercase tracking-widest text-gray-500">
+
+                    #1 Movie
+
+                </p>
+
+                <h3 class="text-2xl font-bold text-amber-400 mt-3 truncate">
+
+                    {{ top_movie }}
+
+                </h3>
+
+                <p class="text-xs text-gray-500 mt-2">
+
+                    Weekend {{ top_weekend }}
+
+                </p>
+
+            </div>
+
+            <div class="w-16 h-16 rounded-2xl bg-purple-500/15 flex justify-center items-center text-3xl">
+
+                🏆
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Weekend Gross -->
+
+    <div class="bg-[#161424] border border-gray-800 rounded-3xl p-6 hover:scale-105 transition">
+
+        <div class="flex justify-between items-center">
+
+            <div>
+
+                <p class="text-xs uppercase tracking-widest text-gray-500">
+
+                    Weekend Gross
+
+                </p>
+
+                <h2 class="text-3xl font-black text-purple-400 mt-3">
+
+                    {{ top_weekend }}
+
+                </h2>
+
+                <p class="text-xs text-gray-500 mt-2">
+
+                    Highest Gross
+
+                </p>
+
+            </div>
+
+            <div class="w-16 h-16 rounded-2xl bg-indigo-500/15 flex justify-center items-center text-3xl">
+
+                💰
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Last Updated -->
+
+    <div class="bg-[#161424] border border-gray-800 rounded-3xl p-6 hover:scale-105 transition">
+
+        <div class="flex justify-between items-center">
+
+            <div>
+
+                <p class="text-xs uppercase tracking-widest text-gray-500">
+
+                    Status
+
+                </p>
+
+                <h2 class="text-3xl font-black text-emerald-400 mt-3">
+
+                    LIVE
+
+                </h2>
+
+                <p class="text-xs text-gray-500 mt-2">
+
+                    Data Available
+
+                </p>
+
+            </div>
+
+            <div class="w-16 h-16 rounded-2xl bg-emerald-500/15 flex justify-center items-center text-3xl">
+
+                📈
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ==========================================
+MOVIE TABLE
+========================================== -->
+
+<section class="bg-[#161424] border border-gray-800 rounded-3xl shadow-xl overflow-hidden">
+
+    <!-- Table Header -->
+
+    <div class="flex flex-col md:flex-row justify-between items-center px-8 py-6 border-b border-gray-800">
+
+        <div>
+
+            <h2 class="text-2xl font-bold text-white">
+                Top 10 Box Office Movies
+            </h2>
+
+            <p class="text-gray-500 text-sm mt-1">
+                Live IMDb US Box Office Rankings
+            </p>
+
+        </div>
+
+        <div class="mt-4 md:mt-0">
+
+            <input
+                type="text"
+                id="movieSearch"
+                placeholder="Search movie..."
+                class="bg-[#201d31] border border-gray-700 rounded-xl px-5 py-3 w-72 text-sm text-white outline-none focus:border-amber-400">
+
+        </div>
+
+    </div>
+
+    <div class="overflow-x-auto">
+
+        <table
+            class="w-full text-left">
+
+            <thead>
+
+            <tr
+                class="bg-[#1c1a2d] text-gray-400 uppercase text-xs tracking-widest">
+
+                <th class="px-6 py-5 text-center">
+                    Rank
+                </th>
+
+                <th class="px-6 py-5">
+                    Movie
+                </th>
+
+                <th class="px-6 py-5">
+                    Weekend Gross
+                </th>
+
+                <th class="px-6 py-5">
+                    Total Gross
+                </th>
+
+                <th class="px-6 py-5">
+                    Weeks
+                </th>
+
+            </tr>
+
+            </thead>
+
+            <tbody id="movieTable">
+
+            {% for movie in movies %}
+
+            <tr
+                class="border-b border-gray-800 hover:bg-[#1b1829] transition duration-300">
+
+                <!-- Rank -->
+
+                <td
+                    class="text-center py-5">
+
+                    {% if movie[0]==1 %}
+
+                    <span class="bg-yellow-500 text-black font-bold rounded-full w-10 h-10 inline-flex items-center justify-center">
+
+                        🥇
+
+                    </span>
+
+                    {% elif movie[0]==2 %}
+
+                    <span class="bg-gray-300 text-black font-bold rounded-full w-10 h-10 inline-flex items-center justify-center">
+
+                        🥈
+
+                    </span>
+
+                    {% elif movie[0]==3 %}
+
+                    <span class="bg-orange-500 text-black font-bold rounded-full w-10 h-10 inline-flex items-center justify-center">
+
+                        🥉
+
+                    </span>
+
+                    {% else %}
+
+                    <span
+                        class="text-gray-500 font-bold">
+
+                        {{ movie[0] }}
+
+                    </span>
+
+                    {% endif %}
+
+                </td>
+
+                <!-- Movie -->
+
+                <td
+                    class="px-6 py-5">
+
+                    <h3
+                        class="font-semibold text-white">
+
+                        {{ movie[1] }}
+
+                    </h3>
+
+                </td>
+
+                <!-- Weekend -->
+
+                <td
+                    class="px-6 py-5">
+
+                    <span
+                        class="text-purple-400 font-semibold">
+
+                        {{ movie[2] }}
+
+                    </span>
+
+                </td>
+
+                <!-- Total -->
+
+                <td
+                    class="px-6 py-5 text-gray-300">
+
+                    {{ movie[3] }}
+
+                </td>
+
+                <!-- Weeks -->
+
+                <td
+                    class="px-6 py-5">
+
+                    <span
+                        class="bg-[#232038] px-4 py-2 rounded-full text-sm">
+
+                        {{ movie[4] }}
+
+                    </span>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+<script>
+
+const input=document.getElementById("movieSearch");
+
+input.addEventListener("keyup",function(){
+
+let filter=input.value.toLowerCase();
+
+let rows=document.querySelectorAll("#movieTable tr");
+
+rows.forEach(row=>{
+
+let movie=row.cells[1].innerText.toLowerCase();
+
+row.style.display=movie.includes(filter)?"":"none";
+
+});
+
+});
+
+</script>
+{% elif page == "analytics" %}
+
+<!-- ==========================================
+ANALYTICS HEADER
+========================================== -->
+
+<section class="mb-8">
+
+    <h1 class="text-4xl font-black text-white">
+        Analytics Dashboard
+    </h1>
+
+    <p class="text-gray-500 mt-2">
+        Visual insights from the IMDb Top 10 Box Office data.
+    </p>
+
+</section>
+
+<!-- ==========================================
+ANALYTICS SUMMARY CARDS
+========================================== -->
+
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+    <div class="bg-[#161424] border border-gray-800 rounded-3xl p-6">
+
+        <div class="text-4xl mb-3">🎬</div>
+
+        <h4 class="text-gray-500 uppercase text-xs tracking-widest">
+            Movies
+        </h4>
+
+        <h2 class="text-4xl font-black mt-3 text-white">
+            {{ total_movies }}
+        </h2>
+
+        <p class="text-gray-500 text-sm mt-2">
+            Total records
+        </p>
+
+    </div>
+
+    <div class="bg-[#161424] border border-gray-800 rounded-3xl p-6">
+
+        <div class="text-4xl mb-3">🏆</div>
+
+        <h4 class="text-gray-500 uppercase text-xs tracking-widest">
+            Top Movie
+        </h4>
+
+        <h2 class="text-2xl font-bold mt-3 text-amber-400 truncate">
+            {{ top_movie }}
+        </h2>
+
+        <p class="text-gray-500 text-sm mt-2">
+            Current #1
+        </p>
+
+    </div>
+
+    <div class="bg-[#161424] border border-gray-800 rounded-3xl p-6">
+
+        <div class="text-4xl mb-3">💰</div>
+
+        <h4 class="text-gray-500 uppercase text-xs tracking-widest">
+            Highest Weekend
+        </h4>
+
+        <h2 class="text-3xl font-black mt-3 text-purple-400">
+            {{ top_weekend }}
+        </h2>
+
+        <p class="text-gray-500 text-sm mt-2">
+            Weekend Gross
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+WEEKEND GROSS CHART
+========================================== -->
+
+<section class="bg-[#161424] border border-gray-800 rounded-3xl p-8 mb-8">
+
+    <h2 class="text-xl font-bold text-white mb-6">
+        Weekend Gross Comparison
+    </h2>
+
+    <canvas id="weekendChart" height="120"></canvas>
+
+</section>
+
+<!-- ==========================================
+TOTAL GROSS CHART
+========================================== -->
+
+<section class="bg-[#161424] border border-gray-800 rounded-3xl p-8">
+
+    <h2 class="text-xl font-bold text-white mb-6">
+        Total Gross Comparison
+    </h2>
+
+    <canvas id="totalChart" height="120"></canvas>
+
+</section>
+
+<script>
+
+const labels={{ chart_labels|tojson }};
+const weekend={{ chart_weekend_values|tojson }};
+const total={{ chart_total_values|tojson }};
+
+new Chart(document.getElementById("weekendChart"),{
+
+type:"bar",
+
+data:{
+
+labels:labels,
+
+datasets:[{
+
+label:"Weekend Gross",
+
+data:weekend,
+
+backgroundColor:"#facc15",
+
+borderRadius:10
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+legend:{
+display:false
+}
+},
+
+scales:{
+
+x:{
+ticks:{
+color:"#cbd5e1"
+},
+grid:{
+display:false
+}
+},
+
+y:{
+ticks:{
+color:"#94a3b8"
+},
+grid:{
+color:"#2d2a43"
+}
+}
+
+}
+
+}
+
+});
+
+new Chart(document.getElementById("totalChart"),{
+
+type:"line",
+
+data:{
+
+labels:labels,
+
+datasets:[{
+
+label:"Total Gross",
+
+data:total,
+
+borderColor:"#8b5cf6",
+
+backgroundColor:"rgba(139,92,246,.2)",
+
+fill:true,
+
+tension:.4
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+legend:{
+display:false
+}
+},
+
+scales:{
+
+x:{
+ticks:{
+color:"#cbd5e1"
+},
+grid:{
+display:false
+}
+},
+
+y:{
+ticks:{
+color:"#94a3b8"
+},
+grid:{
+color:"#2d2a43"
+}
+}
+
+}
+
+}
+
+});
+
+</script>
+
+{% elif page == "database" %}
+
+<!-- ==========================================
+DATABASE HEADER
+========================================== -->
+
+<section class="mb-8">
+
+    <h1 class="text-4xl font-black text-white">
+
+        Database Dashboard
+
+    </h1>
+
+    <p class="text-gray-500 mt-2">
+
+        SQLite database information and system status.
+
+    </p>
+
+</section>
+
+<!-- ==========================================
+DATABASE CARDS
+========================================== -->
+
+<section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+
+    <!-- Total Records -->
+
+    <div class="bg-[#161424] border border-gray-800 rounded-3xl p-6">
+
+        <div class="text-4xl mb-4">
+
+            📂
+
+        </div>
+
+        <p class="text-xs uppercase tracking-widest text-gray-500">
+
+            Records
+
+        </p>
+
+        <h2 class="text-4xl font-black text-white mt-3">
+
+            {{ total_movies }}
+
+        </h2>
+
+        <p class="text-gray-500 text-sm mt-2">
+
+            Movies Stored
+
+        </p>
+
+    </div>
+
+    <!-- Database -->
+
+    <div class="bg-[#161424] border border-gray-800 rounded-3xl p-6">
+
+        <div class="text-4xl mb-4">
+
+            🗄️
+
+        </div>
+
+        <p class="text-xs uppercase tracking-widest text-gray-500">
+
+            Database
+
+        </p>
+
+        <h2 class="text-3xl font-black text-amber-400 mt-3">
+
+            SQLite
+
+        </h2>
+
+        <p class="text-gray-500 text-sm mt-2">
+
+            Local Storage
+
+        </p>
+
+    </div>
+
+    <!-- Status -->
+
+    <div class="bg-[#161424] border border-gray-800 rounded-3xl p-6">
+
+        <div class="text-4xl mb-4">
+
+            🟢
+
+        </div>
+
+        <p class="text-xs uppercase tracking-widest text-gray-500">
+
+            Status
+
+        </p>
+
+        <h2 class="text-3xl font-black text-emerald-400 mt-3">
+
+            Connected
+
+        </h2>
+
+        <p class="text-gray-500 text-sm mt-2">
+
+            Active Database
+
+        </p>
+
+    </div>
+
+    <!-- Last Update -->
+
+    <div class="bg-[#161424] border border-gray-800 rounded-3xl p-6">
+
+        <div class="text-4xl mb-4">
+
+            ⏱️
+
+        </div>
+
+        <p class="text-xs uppercase tracking-widest text-gray-500">
+
+            Updated
+
+        </p>
+
+        <h2 class="text-2xl font-black text-purple-400 mt-3">
+
+            Just Now
+
+        </h2>
+
+        <p class="text-gray-500 text-sm mt-2">
+
+            Latest Scrape
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+DATABASE DETAILS TABLE
+========================================== -->
+
+<section class="bg-[#161424] border border-gray-800 rounded-3xl overflow-hidden">
+
+    <div class="px-8 py-6 border-b border-gray-800">
+
+        <h2 class="text-2xl font-bold text-white">
+
+            Database Information
+
+        </h2>
+
+    </div>
+
+    <table class="w-full">
+
+        <tbody>
+
+        <tr class="border-b border-gray-800">
+
+            <td class="px-8 py-5 text-gray-400">
+
+                Database Engine
+
+            </td>
+
+            <td class="px-8 py-5 text-white font-semibold">
+
+                SQLite 3
+
+            </td>
+
+        </tr>
+
+        <tr class="border-b border-gray-800">
+
+            <td class="px-8 py-5 text-gray-400">
+
+                Total Records
+
+            </td>
+
+            <td class="px-8 py-5 text-white font-semibold">
+
+                {{ total_movies }}
+
+            </td>
+
+        </tr>
+
+        <tr class="border-b border-gray-800">
+
+            <td class="px-8 py-5 text-gray-400">
+
+                Status
+
+            </td>
+
+            <td class="px-8 py-5">
+
+                <span class="bg-emerald-500/20 text-emerald-400 px-4 py-2 rounded-full">
+
+                    Connected
+
+                </span>
+
+            </td>
+
+        </tr>
+
+        <tr class="border-b border-gray-800">
+
+            <td class="px-8 py-5 text-gray-400">
+
+                Scraper
+
+            </td>
+
+            <td class="px-8 py-5 text-white">
+
+                Playwright
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td class="px-8 py-5 text-gray-400">
+
+                Framework
+
+            </td>
+
+            <td class="px-8 py-5 text-white">
+
+                Flask
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</section>
+
+{% endif %}
